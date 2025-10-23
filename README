@@ -1,0 +1,112 @@
+# 🎓 School Management System (Preskool Clone)
+
+This is a Django-based web application designed for the centralized management of students, teachers, subjects, and core administrative functions within a school environment. It utilizes a custom user model for handling different roles (Admin, Teacher, Student) and incorporates real-time notifications.
+
+## ✨ Features
+
+  * **Custom User Authentication:** Separate user roles (`CustomUser`) for Admin, Teacher, and Student access.
+  * **Student Management:** CRUD (Create, Read, Update, Delete) operations for student records and associated parent information.
+  * **Teacher Management:** CRUD operations for managing teacher profiles and details.
+  * **Subject Management:** CRUD operations for school subjects.
+  * **Notifications:** Real-time, user-specific notifications for actions like adding/updating/deleting records.
+  * **Modular Design:** Functionality split across logical Django apps (`school`, `student`, `Teacher`, `home_auth`).
+  * **Frontend:** Built with HTML/CSS based on a dashboard theme (Preskool template structure).
+
+## 🛠️ Setup and Installation
+
+Follow these steps to get your local development environment running.
+
+### 1\. Prerequisites
+
+You must have **Python 3.10+** and **pip** installed.
+
+### 2\. Virtual Environment
+
+Create and activate a virtual environment (recommended):
+
+```bash
+# Create environment
+python -m venv venv
+
+# Activate on Windows
+.\venv\Scripts\activate
+
+# Activate on macOS/Linux
+source venv/bin/activate
+```
+
+### 3\. Install Dependencies
+
+Install all required Python packages (assuming they are listed in a `requirements.txt` file, which you should create):
+
+```bash
+pip install -r requirements.txt 
+# (You will need: Django, pillow, etc.)
+```
+
+### 4\. Configuration
+
+Ensure your Django settings are correct for local development.
+
+  * **Database:** (Uses SQLite by default: `db.sqlite3`).
+
+  * **Media/Static Files:** Ensure `settings.py` includes the following for development:
+
+    ```python
+    # settings.py
+    STATIC_URL = '/static/'
+    STATICFILES_DIRS = [BASE_DIR / 'static']
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = BASE_DIR / 'media'
+    ```
+
+### 5\. Database Setup
+
+Run migrations to create the database schema for all installed apps (`school`, `student`, `Teacher`, `home_auth`):
+
+```bash
+python manage.py makemigrations
+python manage.py migrate
+```
+
+### 6\. Create Superuser
+
+You need an administrator account to access the Django Admin and the frontend Admin Dashboard:
+
+```bash
+python manage.py createsuperuser
+```
+
+*(Note: If you run into authorization issues accessing the admin, remember to verify that your superuser has the `is_staff` flag set to `True`.)*
+
+## ▶️ Running the Project
+
+Start the Django development server:
+
+```bash
+python manage.py runserver
+```
+
+Open your browser and navigate to:
+
+  * **Main Dashboard (Login Required):** `http://127.0.0.1:8000/` (Will redirect to login)
+  * **Django Admin:** `http://127.0.0.1:8000/admin/`
+
+## 📂 Project Structure (Key Directories)
+
+The project is structured around key functional apps:
+
+| App | Purpose | Key Files |
+| :--- | :--- | :--- |
+| **Home** | Project Configuration (Root) | `settings.py`, `urls.py`, `wsgi.py` |
+| **home\_auth** | Custom User Model (`CustomUser`), Login/Signup logic. | `models.py`, `views.py` |
+| **school** | General/Shared components (Notifications, core views). | `models.py` (for `Notification`), `views.py` (index, dashboard, notification logic) |
+| **student** | Student & Parent management functionality. | `models.py`, `views.py`, `urls.py` |
+| **Teacher** | Teacher profile management functionality. | `models.py`, `views.py`, `urls.py` |
+| **templates/**| Central template directory, containing `base.html`, `Home/`, `students/`, `teachers/`, etc. | |
+
+## 🤝 Contribution
+
+If you find a bug or have a suggestion, please open an issue or submit a pull request\!
+
+-----
